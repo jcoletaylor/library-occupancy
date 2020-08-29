@@ -6,10 +6,11 @@ const { S3Client } = require('./aws/s3')
 class Loader {
   async load () {
     const locationIds = settings.storetraffic.locationIds
-    const promises = locationIds.map(async (locationId) => {
+    for (const locationId of locationIds) {
+      // this way we do not hit the API all at once
+      console.log(`Loading ${locationId}`)
       await this.loadLocation(locationId)
-    })
-    await Promise.allSettled(promises)
+    }
   }
 
   async loadLocation (locationId) {
@@ -20,7 +21,8 @@ class Loader {
       const data = await client.occupancyForFacility(facility)
       const json = JSON.stringify(data)
       const response = await S3Client.uploadJson(json, locationId)
-      result = { status: 'upload attempted', response }
+      result = { location: locationId, status: 'upload attempted', response }
+      console.log(result)
     } catch (err) {
       console.error(err)
       result = { status: 'error', message: err.message }

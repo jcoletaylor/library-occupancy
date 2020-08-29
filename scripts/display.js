@@ -1,14 +1,14 @@
 const { OccupancyClient } = require('../src/occupancy_client')
 const { Facility } = require('../src/facility')
 
-async function displayJson () {
+async function display () {
   const client = new OccupancyClient()
   const facility = new Facility('apst0000')
   const data = await client.occupancyForFacility(facility)
   return data
 }
 
-displayJson().then((json) => {
+display().then((json) => {
   console.log(json)
   process.exit(0)
 }).catch((err) => {

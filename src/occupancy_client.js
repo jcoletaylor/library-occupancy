@@ -37,12 +37,8 @@ class OccupancyClient {
 
   async retrieveDataForFacility (facility) {
     const raw = await this.retrieveRawJsonForFacility(facility)
-    let data = {}
-    try {
-      data = raw.TRAFFIC.data[0].$
-    } catch (err) {
-      console.error(err)
-    }
+    console.log(JSON.stringify(raw))
+    const data = raw.TRAFFIC.data[0].$ // this might throw, but it's okay
     return data
   }
 
