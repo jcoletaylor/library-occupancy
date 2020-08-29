@@ -9,18 +9,17 @@ module.exports = {
     storetraffic: {
       endpoint: 'https://www.smssoftware.net',
       path: '/tms/manTrafExp',
-      public_api_key: process.env.STORETRAFFIC_API_KEY,
       locationIds: ['apst0000']
     },
     aws: {
       connection: {
         region: 'us-east-1',
         accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        secretAccessKey: process.env.AWS_SECRET_KEY
       },
       s3: {
-        endpoint: 'http://localhost:4572',
-        bucket: 'library-occupancy'
+        bucket: 'library-occupancy',
+        key_prefix: 'local-test'
       }
     }
   },
@@ -32,8 +31,7 @@ module.exports = {
     storetraffic: {
       endpoint: 'http://localhost',
       path: '/dummy',
-      public_api_key: 'nope',
-      locationIds: ['fake']
+      locationIds: ['apst0000']
     },
     aws: {
       connection: {
@@ -43,7 +41,8 @@ module.exports = {
       },
       s3: {
         endpoint: 'http://localhost:4572',
-        bucket: 'library-occupancy'
+        bucket: 'library-occupancy',
+        key_prefix: 'test'
       }
     }
   }

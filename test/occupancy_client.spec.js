@@ -1,18 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const { appRoot } = require('../src/config/settings')
 const moment = require('moment')
-
 const fetch = require('node-fetch')
 jest.mock('node-fetch')
 
-const { OccupancyClient } = require('../src/occupancy_client')
+const { getMockData } = require('./helpers')
 
-function getMockData (fileName) {
-  const mockRoot = path.join(appRoot, 'test/__mocks__')
-  const data = fs.readFileSync(path.join(mockRoot, fileName)).toString()
-  return data
-}
+const { OccupancyClient } = require('../src/occupancy_client')
+const { Facility } = require('../src/facility')
 
 describe('Occupancy Client', () => {
   beforeEach(() => {
@@ -27,7 +20,8 @@ describe('Occupancy Client', () => {
       }
     })
     const client = new OccupancyClient()
-    const jsonOut = await client.retrieveRawJsonForFacility('dummy')
+    const facility = new Facility('apst0000')
+    const jsonOut = await client.retrieveRawJsonForFacility(facility)
     const expectedResult = JSON.parse(getMockData('sample_result.json'))
     expect(jsonOut).toEqual(expectedResult)
   })
@@ -40,7 +34,8 @@ describe('Occupancy Client', () => {
       }
     })
     const client = new OccupancyClient()
-    const jsonOut = await client.retrieveDataForFacility('dummy')
+    const facility = new Facility('apst0000')
+    const jsonOut = await client.retrieveDataForFacility(facility)
     expect(jsonOut).toEqual({
       storeId: 'apst0000',
       color: 'green',
@@ -63,7 +58,8 @@ describe('Occupancy Client', () => {
       }
     })
     const client = new OccupancyClient()
-    const jsonOut = await client.occupancyForFacility('dummy')
+    const facility = new Facility('apst0000')
+    const jsonOut = await client.occupancyForFacility(facility)
     expect(jsonOut).toEqual({
       location_id: 'apst0000',
       color: 'green',

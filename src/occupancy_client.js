@@ -11,8 +11,8 @@ class OccupancyClient {
       interval: 5,
       reqType: 'tdo',
       hours: 2,
-      apiKey: settings.storetraffic.public_api_key,
-      locationId: facility
+      apiKey: facility.getApiKey(),
+      locationId: facility.locationId
     }
   }
   getRequest (facility) {

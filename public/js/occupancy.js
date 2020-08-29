@@ -1,18 +1,20 @@
 const Occupancy = (containerId, circleBarId, occupancyTotalId, facility) => {
   const getOccupancy = async () => {
-    // use facility data to get from remote
+    const options = {
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors'
+    }
+    const url = 'https://library-occupancy.s3.amazonaws.com/local-test/apst0000'
+    const resp = await fetch(url, options)
+    const occupancyData = await resp.json()
     return {
-      data: {
-        occupancy: 200,
-        occupancy_limit: 500,
-        current_as_of: new Date()
-      }
+      data: occupancyData
     }
   }
 
   const formatDate = (d) => {
-    const out = `${d.getMonth()}-${d.getDate()}-${d.getYear()} ${d.getHours()}:${d.getMinutes()}`
-    return out
+    // const out = `${d.getMonth()}-${d.getDate()}-${d.getYear()} ${d.getHours()}:${d.getMinutes()}`
+    return d
   }
 
   const draw = async () => {
@@ -20,7 +22,7 @@ const Occupancy = (containerId, circleBarId, occupancyTotalId, facility) => {
     const bar = document.getElementById(circleBarId)
     const r = bar.getAttribute('r')
     const c = Math.PI * (r * 2)
-    let current = data.occupancy
+    const current = data.occupancy
     const limit = data.occupancy_limit
     let pct = 100 - (((limit - current) / limit) * 100)
 
