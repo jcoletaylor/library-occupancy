@@ -1,0 +1,23 @@
+{
+    "TRAFFIC": {
+        "data": [{
+            "$": {
+                "storeId": "apst0000",
+                "color": "green",
+                "occDate": "2020-08-29 15:30:42",
+                "occLevelNow": "5",
+                "occLevel-1": "5",
+                "occLevel-2": "5",
+                "occLevel-3": "6",
+                "occLevel-4": "5",
+                "occLevelMax": "10",
+                "occLevelPct": "50.0 %"
+            }
+        }],
+        "outputMessage": [{
+            "$": {
+                "text": "Traffic Data generated successfully."
+            }
+        }]
+    }
+}
