@@ -20,6 +20,7 @@ class OccupancyClient {
       locationId: facility.locationId
     }
   }
+
   getRequest (facility) {
     const req = {
       headers: {
@@ -31,6 +32,7 @@ class OccupancyClient {
     }
     return req
   }
+
   async retrieveRawJsonForFacility (facility) {
     const net = new FetchHelper()
     const req = this.getRequest(facility)

@@ -20,7 +20,7 @@ class FetchHelper {
       const params = querystring.stringify(req.params)
       req.path = `${req.path}?${params}`
     }
-    const uri = url.resolve(req.endpoint, req.path)
+    const uri = new url.URL(req.path, req.endpoint)
     const options = this.getFetchOptions(method, req)
     const response = await fetch(uri, options)
     return response
