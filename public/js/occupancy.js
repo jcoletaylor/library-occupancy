@@ -37,6 +37,11 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     return pct
   }
 
+  const formatDate = (ds) => {
+    const d = new Date(Date.parse(ds.toString()))
+    return `${d.toDateString()}, ${d.getHours()}:${d.getMinutes()}`
+  }
+
   const getLevel = (pct) => {
     let level = 'safe'
     if ((pct > 50) && (pct < 80)) {
@@ -60,25 +65,29 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     const fillPct = ((100 - pct) / 100) * c
     const level = getLevel(pct)
 
+    // add the level and fill percentage to the bar
     bar.classList.add(level)
     bar.style.strokeDashoffset = fillPct
 
+    // update the overall container percentage
     const contClass = `#${containerId} .${containerClass}`
     const container = document.querySelector(contClass)
     container.setAttribute('data-pct', pct)
 
+    // update the current vs total
     const occupancySelector = `#${containerId} .occupancy-total`
     const total = document.querySelector(occupancySelector)
     total.innerHTML = current + ' of ' + limit
 
+    // list the name of the space
     const facilitySelector = `#${containerId} .facility`
     const fac = document.querySelector(facilitySelector)
     fac.innerHTML = `${facility.name} Occupancy`
 
+    // note the timestamp for when it was last updated
     const asOfSelector = `#${containerId} .current-as-of`
     const asOf = document.querySelector(asOfSelector)
-    asOf.innerHTML = `Current as of: ${data.current_as_of}`
-    console.log('we drew again', data)
+    asOf.innerHTML = `Current as of: ${formatDate(data.current_as_of)}`
   }
 
   const docOnReady = (fn) => {

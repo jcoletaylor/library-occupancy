@@ -2,7 +2,7 @@ const { Loader } = require('../src/loader')
 
 async function load () {
   const loader = new Loader()
-  const result = await loader.loadLocation('apst0000')
+  const result = await loader.load()
   return result
 }
 
