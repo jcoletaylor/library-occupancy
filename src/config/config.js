@@ -69,8 +69,8 @@ module.exports = {
       endpoint: 'https://www.smssoftware.net',
       path: '/tms/manTrafExp',
       locationIds: [
-        'afa2', 'West2', 'education',
-        'smathers2', 'HSCL2', 'Marston2'
+        'UFL005', 'UFL002', 'UFL004',
+        'UFL001', 'UFL006', 'UFL003'
       ]
     },
     poll: {
