@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>University of Florida Smathers Libraries Occupancy - Panama Canal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" type="text/css"
+        media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        type="text/css" media="all">
+    <link rel="stylesheet" href="../css/occupancy.css" type="text/css" media="all" />
+    <script type="text/javascript" src="../js/occupancy.js"></script>
+    <script type="text/javascript">
+        const facilities = [
+            LibraryFacility('Smathers Library - Panama Canal ', 'UFLPCM'),
+        ]
+        const occupancies = facilities.map((facility) => {
+            const occupancy = LibraryOccupancyWidget(`${facility.locationId}-container`, facility)
+            occupancy.render()
+            return occupancy
+        })
+        const POLL_SECONDS = 60
+        setInterval(() => {
+            occupancies.forEach(async (occupancy) => {
+                await occupancy.draw()
+            })
+        }, POLL_SECONDS * 1000)
+    </script>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="card" id="UFLPCM-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
