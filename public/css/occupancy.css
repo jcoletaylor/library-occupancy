@@ -6,7 +6,7 @@
 }
 
 .svg-circle .bar-fill {
-    stroke: #FF9F1E;
+    stroke: #62ff1e;
 }
 
 .svg-circle .bar-fill.warning {
@@ -14,11 +14,11 @@
 }
 
 .svg-circle .bar-fill.safe {
-    stroke: #FF9F1E;
+    stroke: #62ff1e;
 }
 
-.svg-circle .bar-fill.noentry {
-    stroke: #FF9F1E;
+.svg-circle .bar-fill.danger {
+    stroke: #ff2d1e;
 }
 
 .facility-container {

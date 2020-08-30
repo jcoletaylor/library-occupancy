@@ -22,17 +22,8 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     }
   }
 
-  const draw = async () => {
-    const { data } = await getOccupancy()
-    const containerClass = 'facility-container'
-    const barSelector = `#${containerId} .${containerClass} .svg-circle .bar-fill`
-    const bar = document.querySelector(barSelector)
-    const r = bar.getAttribute('r')
-    const c = Math.PI * (r * 2)
-    const current = data.occupancy
-    const limit = data.occupancy_limit
+  const getPercentage = (limit, current) => {
     let pct = 100 - (((limit - current) / limit) * 100)
-
     if (isNaN(pct)) {
       pct = 100
     }
@@ -43,10 +34,35 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     if (pct > 100) {
       pct = 100
     }
+    return pct
+  }
 
+  const getLevel = (pct) => {
+    let level = 'safe'
+    if ((pct > 50) && (pct < 80)) {
+      level = 'warning'
+    } else if (pct > 80) {
+      level = 'danger'
+    }
+    return level
+  }
+
+  const draw = async () => {
+    const { data } = await getOccupancy()
+    const containerClass = 'facility-container'
+    const barSelector = `#${containerId} .${containerClass} .svg-circle .bar-fill`
+    const bar = document.querySelector(barSelector)
+    const r = bar.getAttribute('r')
+    const c = Math.PI * (r * 2)
+    const current = data.occupancy
+    const limit = data.occupancy_limit
+    const pct = getPercentage(limit, current)
     const fillPct = ((100 - pct) / 100) * c
+    const level = getLevel(pct)
 
+    bar.classList.add(level)
     bar.style.strokeDashoffset = fillPct
+
     const contClass = `#${containerId} .${containerClass}`
     const container = document.querySelector(contClass)
     container.setAttribute('data-pct', pct)
