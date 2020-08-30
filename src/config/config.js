@@ -70,7 +70,9 @@ module.exports = {
       path: '/tms/manTrafExp',
       locationIds: [
         'UFL005', 'UFL002', 'UFL004',
-        'UFL001', 'UFL006', 'UFL003'
+        'UFL001', 'UFL006', 'UFL003',
+        'UFLLAT', 'UFLPCM', 'UFLGRR',
+        'UFLRM1'
       ]
     },
     poll: {
