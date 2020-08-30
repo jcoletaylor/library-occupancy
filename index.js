@@ -1,4 +1,4 @@
-const { app } = require('./app')
+const { app } = require('./src/app')
 const { Poll } = require('./src/poll')
 const poll = new Poll()
 
