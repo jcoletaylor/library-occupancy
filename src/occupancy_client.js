@@ -1,13 +1,18 @@
-const moment = require('moment')
+const moment = require('moment-timezone')
 const { settings } = require('./config/settings')
 const xml2js = require('xml2js')
 const { FetchHelper } = require('./lib/fetch_helper')
 
+const getTimeZone = () => {
+  const tz = process.env.TZ ? process.env.TZ : 'America/New_York'
+  return tz
+}
 class OccupancyClient {
   getTmasParams (facility) {
+    const date = moment().tz(getTimeZone()).format('MM/DD/YYYY')
     return {
-      fromDate: moment().format('MM/DD/YYYY'),
-      toDate: moment().format('MM/DD/YYYY'),
+      fromDate: date,
+      toDate: date,
       interval: 5,
       reqType: 'tdo',
       hours: 2,
@@ -48,7 +53,7 @@ class OccupancyClient {
       location_id: data.storeId,
       occupancy: parseInt(data.occLevelNow, 10),
       occupancy_limit: parseInt(data.occLevelMax, 10),
-      current_as_of: moment(data.occDate),
+      current_as_of: moment(data.occDate).tz(getTimeZone()),
       color: data.color,
       base_data: data
     }

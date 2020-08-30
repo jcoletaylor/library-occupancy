@@ -1,4 +1,4 @@
-const moment = require('moment')
+const moment = require('moment-timezone')
 const fetch = require('node-fetch')
 jest.mock('node-fetch')
 
@@ -63,7 +63,7 @@ describe('Occupancy Client', () => {
     expect(jsonOut).toEqual({
       location_id: 'apst0000',
       color: 'green',
-      current_as_of: moment('2020-08-29 15:30:42'),
+      current_as_of: moment('2020-08-29 15:30:42').tz('America/New_York'),
       occupancy: 5,
       occupancy_limit: 10,
       base_data: expect.any(Object)
