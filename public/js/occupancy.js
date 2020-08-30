@@ -78,6 +78,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     const asOfSelector = `#${containerId} .current-as-of`
     const asOf = document.querySelector(asOfSelector)
     asOf.innerHTML = `Current as of: ${data.current_as_of}`
+    console.log('we drew again', data)
   }
 
   const docOnReady = (fn) => {
@@ -119,6 +120,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
   }
 
   return {
-    render
+    render,
+    draw
   }
 }

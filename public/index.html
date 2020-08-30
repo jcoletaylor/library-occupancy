@@ -4,14 +4,29 @@
     <link rel="stylesheet" href="css/occupancy.css" type="text/css" media="all" />
     <script type="text/javascript" src="js/occupancy.js"></script>
     <script type="text/javascript">
-        const facility = LibraryFacility('Reading Room', 'UFLGRR')
-        const occupancy = LibraryOccupancyWidget('UFLGRR-container', facility)
-        occupancy.render()
+        const facilities = [
+            LibraryFacility('Reading Room', 'UFLGRR'),
+            LibraryFacility('Room 100', 'UFLRM1'),
+            LibraryFacility('LACC', 'UFLLAT'),
+        ]
+        const occupancies = facilities.map((facility) => {
+            const occupancy = LibraryOccupancyWidget(`${facility.locationId}-container`, facility)
+            occupancy.render()
+            return occupancy
+        })
+        const POLL_SECONDS = 60
+        setInterval(() => {
+            occupancies.forEach(async (occupancy) => {
+                await occupancy.draw()
+            })
+        }, POLL_SECONDS * 1000)
     </script>
 </head>
 
 <body>
     <div id="UFLGRR-container"></div>
+    <div id="UFLRM1-container"></div>
+    <div id="UFLLAT-container"></div>
 </body>
 
 </html>
