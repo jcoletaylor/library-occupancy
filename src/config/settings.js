@@ -4,8 +4,10 @@ const config = require('./config')
 
 const settings = config[environment]
 const appRoot = path.join(__dirname, '../../')
+const publicFilePath = path.join(appRoot, 'public')
 
 module.exports = {
   settings,
-  appRoot
+  appRoot,
+  publicFilePath
 }

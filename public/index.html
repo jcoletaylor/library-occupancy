@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="css/occupancy.css" type="text/css" media="all" />
     <script type="text/javascript" src="js/occupancy.js"></script>
     <script type="text/javascript">
@@ -8,6 +9,13 @@
             LibraryFacility('Reading Room', 'UFLGRR'),
             LibraryFacility('Room 100', 'UFLRM1'),
             LibraryFacility('LACC', 'UFLLAT'),
+            LibraryFacility('UFLPCM', 'UFLPCM'),
+            LibraryFacility('UFL001', 'UFL001'),
+            LibraryFacility('UFL002', 'UFL002'),
+            LibraryFacility('UFL003', 'UFL003'),
+            LibraryFacility('UFL004', 'UFL004'),
+            LibraryFacility('UFL005', 'UFL005'),
+            LibraryFacility('UFL006', 'UFL006'),
         ]
         const occupancies = facilities.map((facility) => {
             const occupancy = LibraryOccupancyWidget(`${facility.locationId}-container`, facility)
@@ -24,9 +32,56 @@
 </head>
 
 <body>
-    <div id="UFLGRR-container"></div>
-    <div id="UFLRM1-container"></div>
-    <div id="UFLLAT-container"></div>
+    <section class="hero has-background-success-light">
+        <div class="hero-body">
+            <h1 class="title">UF Library Occupancy</h1>
+            <h2 class="subtitle">Facility Occupancy Counts</h2>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="card" id="UFLGRR-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFLRM1-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFLLAT-container"></div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="card" id="UFLPCM-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFL001-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFL002-container"></div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="card" id="UFL003-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFL004-container"></div>
+                </div>
+                <div class="column">
+                    <div class="card" id="UFL005-container"></div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-one-third"></div>
+                <div class="column is-one-third">
+                    <div class="card" id="UFL006-container"></div>
+                </div>
+                <div class="column is-one-third"></div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

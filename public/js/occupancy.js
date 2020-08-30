@@ -39,7 +39,9 @@ const LibraryOccupancyWidget = (containerId, facility) => {
 
   const formatDate = (ds) => {
     const d = new Date(Date.parse(ds.toString()))
-    return `${d.toDateString()}, ${d.getHours()}:${d.getMinutes()}`
+    let minutes = d.getMinutes()
+    minutes = (minutes < 10 ? `0${minutes}` : `${minutes}`)
+    return `${d.toDateString()}, ${d.getHours()}:${minutes}`
   }
 
   const getLevel = (pct) => {
@@ -72,22 +74,22 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     // update the overall container percentage
     const contClass = `#${containerId} .${containerClass}`
     const container = document.querySelector(contClass)
-    container.setAttribute('data-pct', pct)
+    container.setAttribute('data-pct', Math.round(pct))
 
     // update the current vs total
     const occupancySelector = `#${containerId} .occupancy-total`
     const total = document.querySelector(occupancySelector)
-    total.innerHTML = current + ' of ' + limit
+    total.innerHTML = `Occupancy: ${current} of ${limit}`
 
     // list the name of the space
     const facilitySelector = `#${containerId} .facility`
     const fac = document.querySelector(facilitySelector)
-    fac.innerHTML = `${facility.name} Occupancy`
+    fac.innerHTML = `${facility.name}`
 
     // note the timestamp for when it was last updated
     const asOfSelector = `#${containerId} .current-as-of`
     const asOf = document.querySelector(asOfSelector)
-    asOf.innerHTML = `Current as of: ${formatDate(data.current_as_of)}`
+    asOf.innerHTML = `Updated: ${formatDate(data.current_as_of)}`
   }
 
   const docOnReady = (fn) => {
@@ -102,21 +104,23 @@ const LibraryOccupancyWidget = (containerId, facility) => {
 
   const init = () => {
     return `
-        <h1 class="facility">Library Occupancy</h1>
-        <h2 class="occupancy-total"></h2>
-
-        <div class="facility-container" data-pct="100">
-            <svg class="svg-circle" width="200" height="200" viewPort="0 0 100 100" version="1.1"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0">
-                </circle>
-                <circle class="bar-fill" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48"
-                    stroke-dashoffset="0">
-                </circle>
-            </svg>
+        <div class="card-header has-background-primary-light">
+            <div class="card-header-title is-centered facility">Library Occupancy</div>
         </div>
-
-        <h3 class="current-as-of"></h3>
+        <div class="card-content">
+          <div class="occupancy-total is-centered"></div>
+          <div class="facility-container" data-pct="100">
+              <svg class="svg-circle" width="200" height="200" viewPort="0 0 100 100" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0">
+                  </circle>
+                  <circle class="bar-fill" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48"
+                      stroke-dashoffset="0">
+                  </circle>
+              </svg>
+          </div>
+          <div class="content is-centered is-small current-as-of"></div>
+        </div>
     `
   }
 
