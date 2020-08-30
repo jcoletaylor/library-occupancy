@@ -56,7 +56,7 @@ module.exports = {
       s3: {
         endpoint: 'http://localhost:4572',
         bucket: 'library-occupancy',
-        key_prefix: 'test'
+        key_prefix: 'local-test'
       }
     }
   },
