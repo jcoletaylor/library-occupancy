@@ -104,7 +104,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
 
   const init = () => {
     return `
-        <div class="card-header has-background-primary-light">
+        <div class="card-header has-background-info-light">
             <div class="card-header-title is-centered facility">Library Occupancy</div>
         </div>
         <div class="card-content">
