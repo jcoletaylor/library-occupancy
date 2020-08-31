@@ -47,6 +47,14 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     return pct
   }
 
+  const safeOccupancyMinimum = (min) => {
+    const safeMin = parseInt(min.toString(), 10)
+    if (safeMin < 0) {
+      return 0
+    }
+    return safeMin
+  }
+
   const formatDate = (ds) => {
     const d = new Date(Date.parse(ds.toString()))
     let minutes = d.getMinutes()
@@ -64,43 +72,69 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     return level
   }
 
-  const draw = async () => {
-    const { data } = await getOccupancy()
+  const getFillPercentage = (radius, pct) => {
+    const c = Math.PI * (radius * 2)
+    const fillPct = ((100 - pct) / 100) * c
+    return fillPct
+  }
+
+  const updateBar = (pct) => {
     const containerClass = 'facility-container'
     const barSelector = `#${containerId} .${containerClass} .svg-circle .bar-fill`
     const bar = document.querySelector(barSelector)
-    const r = bar.getAttribute('r')
-    const c = Math.PI * (r * 2)
-    const current = data.occupancy
-    const limit = data.occupancy_limit
-    const pct = getPercentage(limit, current)
-    const fillPct = ((100 - pct) / 100) * c
     const level = getLevel(pct)
-
-    // add the level and fill percentage to the bar
+    const radius = bar.getAttribute('r')
+    const fillPct = getFillPercentage(radius, pct)
     bar.classList.remove(OCCUPANCY_LEVELS.SAFE, OCCUPANCY_LEVELS.WARNING, OCCUPANCY_LEVELS.DANGER)
     bar.classList.add(level)
     bar.style.strokeDashoffset = fillPct
+  }
 
-    // update the overall container percentage
+  const updateContainer = (pct) => {
+    const containerClass = 'facility-container'
     const contClass = `#${containerId} .${containerClass}`
     const container = document.querySelector(contClass)
     container.setAttribute('data-pct', Math.round(pct))
+  }
 
-    // update the current vs total
+  const updateOccupancyTotal = (current, limit) => {
     const occupancySelector = `#${containerId} .occupancy-total`
     const total = document.querySelector(occupancySelector)
     total.innerHTML = `Occupancy: ${current} of ${limit}`
+  }
 
-    // list the name of the space
+  const updateFacilityName = () => {
     const facilitySelector = `#${containerId} .facility`
     const fac = document.querySelector(facilitySelector)
     fac.innerHTML = `${facility.name}`
+  }
 
-    // note the timestamp for when it was last updated
+  const updateCurrentAsOf = (data) => {
     const asOfSelector = `#${containerId} .current-as-of`
     const asOf = document.querySelector(asOfSelector)
     asOf.innerHTML = `Updated: ${formatDate(data.current_as_of)}`
+  }
+
+  const draw = async () => {
+    const { data } = await getOccupancy()
+    const current = safeOccupancyMinimum(data.occupancy)
+    const limit = data.occupancy_limit
+    const pct = getPercentage(limit, current)
+
+    // add the level and fill percentage to the bar
+    updateBar(pct)
+
+    // update the overall container percentage
+    updateContainer(pct)
+
+    // update the current vs total
+    updateOccupancyTotal(current, limit)
+
+    // list the name of the space
+    updateFacilityName()
+
+    // note the timestamp for when it was last updated
+    updateCurrentAsOf(data)
   }
 
   const docOnReady = (fn) => {
@@ -113,7 +147,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     }
   }
 
-  const init = () => {
+  const buildCard = () => {
     return `
         <div class="card-header has-background-info-light">
             <div class="card-header-title is-centered facility">Library Occupancy</div>
@@ -138,7 +172,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
   const render = () => {
     docOnReady(async () => {
       const container = document.getElementById(containerId)
-      container.innerHTML = init()
+      container.innerHTML = buildCard()
       await draw()
     })
   }
