@@ -4,6 +4,17 @@ const LibraryFacility = (name, locationId, prefix = 'uf-lib') => {
   }
 }
 
+const OCCUPANCY_LEVELS = {
+  SAFE: 'safe',
+  WARNING: 'warning',
+  DANGER: 'danger'
+}
+
+const OCCUPANCY_LEVEL_RANGES = {
+  SAFE_MAXIUMUM: 50,
+  WARNING_MAXIUMUM: 80
+}
+
 const LibraryOccupancyWidget = (containerId, facility) => {
   const getUrl = () => {
     const baseUrl = 'https://library-occupancy.s3.amazonaws.com'
@@ -27,7 +38,6 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     if (isNaN(pct)) {
       pct = 100
     }
-
     if (pct < 0) {
       pct = 0
     }
@@ -45,11 +55,11 @@ const LibraryOccupancyWidget = (containerId, facility) => {
   }
 
   const getLevel = (pct) => {
-    let level = 'safe'
-    if ((pct > 50) && (pct < 80)) {
-      level = 'warning'
-    } else if (pct > 80) {
-      level = 'danger'
+    let level = OCCUPANCY_LEVELS.SAFE
+    if ((pct > OCCUPANCY_LEVEL_RANGES.SAFE_MAXIUMUM) && (pct <= OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM)) {
+      level = OCCUPANCY_LEVELS.WARNING
+    } else if (pct > OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM) {
+      level = OCCUPANCY_LEVELS.DANGER
     }
     return level
   }
@@ -68,9 +78,7 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     const level = getLevel(pct)
 
     // add the level and fill percentage to the bar
-    bar.classList.remove('safe')
-    bar.classList.remove('warning')
-    bar.classList.remove('danger')
+    bar.classList.remove(OCCUPANCY_LEVELS.SAFE, OCCUPANCY_LEVELS.WARNING, OCCUPANCY_LEVELS.DANGER)
     bar.classList.add(level)
     bar.style.strokeDashoffset = fillPct
 
