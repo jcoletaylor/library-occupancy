@@ -68,6 +68,9 @@ const LibraryOccupancyWidget = (containerId, facility) => {
     const level = getLevel(pct)
 
     // add the level and fill percentage to the bar
+    bar.classList.remove('safe')
+    bar.classList.remove('warning')
+    bar.classList.remove('danger')
     bar.classList.add(level)
     bar.style.strokeDashoffset = fillPct
 
