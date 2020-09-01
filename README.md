@@ -18,6 +18,6 @@ The frontend display [provided with this project](./public) is not at all the on
 
 [Contributions](./CONTRIBUTING) to the codebase or to suggested changes are welcome. Standard forking and PRs are requested, with common OpenSource expectations of professionalism and courtesy.
 
-The [License](./LICENSE) is GPLv2 for this code.
+The [License](./LICENSE) is GPLv3 for this code.
 
 Maintenance: As the TMAS API is itself proprietary, this code is subject to fall out of viability if TMAS updates its API, and for the codebase to function, it is of course required to have viable API keys and location IDs.
