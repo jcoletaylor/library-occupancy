@@ -1,6 +1,9 @@
 const moment = require('moment-timezone')
-const fetch = require('node-fetch')
+
+global.fetch = require('node-fetch')
 jest.mock('node-fetch')
+const fetchTimeout = require('fetch-timeout')
+jest.mock('fetch-timeout')
 
 const { getMockData } = require('./helpers')
 
@@ -9,11 +12,11 @@ const { Facility } = require('../src/facility')
 
 describe('Occupancy Client', () => {
   beforeEach(() => {
-    fetch.mockClear()
+    fetchTimeout.mockClear()
   })
   it('should be able to retrieve raw json for a facility', async () => {
     const sampleXml = getMockData('sample_result.xml')
-    fetch.mockResolvedValue({
+    fetchTimeout.mockResolvedValue({
       status: 200,
       text: () => {
         return sampleXml
@@ -27,7 +30,7 @@ describe('Occupancy Client', () => {
   })
   it('should be able to retrieve data for a facility', async () => {
     const sampleXml = getMockData('sample_result.xml')
-    fetch.mockResolvedValue({
+    fetchTimeout.mockResolvedValue({
       status: 200,
       text: () => {
         return sampleXml
@@ -51,7 +54,7 @@ describe('Occupancy Client', () => {
   })
   it('should be able to get parsed occupancy for a facility', async () => {
     const sampleXml = getMockData('sample_result.xml')
-    fetch.mockResolvedValue({
+    fetchTimeout.mockResolvedValue({
       status: 200,
       text: () => {
         return sampleXml

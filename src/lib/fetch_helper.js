@@ -1,7 +1,9 @@
-const fetch = require('node-fetch')
+const fetchTimeout = require('fetch-timeout')
 const url = require('url')
 const querystring = require('querystring')
 const { HttpMethod } = require('../lib/http_method')
+
+const REQUEST_TIMEOUT_MS = 5000
 
 class FetchHelper {
   async get (req) {
@@ -22,7 +24,8 @@ class FetchHelper {
     }
     const uri = new url.URL(req.path, req.endpoint)
     const options = this.getFetchOptions(method, req)
-    const response = await fetch(uri, options)
+    const timeoutMessage = `No response received from ${uri} within ${REQUEST_TIMEOUT_MS}`
+    const response = await fetchTimeout(uri, options, REQUEST_TIMEOUT_MS, timeoutMessage)
     return response
   }
 
@@ -31,7 +34,8 @@ class FetchHelper {
       method,
       headers: Object.assign({
         'Content-Type': 'application/json'
-      }, (req.headers || {}))
+      }, (req.headers || {})),
+      mode: (req.mode || 'no-cors')
     }
     if (Object.keys(req.data).length === 0 && req.data.constructor === Object) {
       return options
