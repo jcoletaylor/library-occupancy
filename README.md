@@ -8,13 +8,13 @@ Store Traffic powers the people counting solution for the University of Florida 
 
 ## Caching on the Backend
 
-This project polls the TMAS API every five minutes, getting occupancy dashboard metrics, per configured location. These XML API results are parsed into JSON and stored in AWS S3 at predictive paths. The AWS S3 bucket is open to public-read and any CORS GET request, so any frontend can interact with it without authentication or configuration. The NodeJS/Express app that manages this is served on [Heroku](https://www.heroku.com) from [here](https://library-occupancy.herokuapp.com/static/). Note that the Heroku site *should not* be hit directly, it is meant as an example of the running site deployed, not to be linked to - the Heroku instance size is moderate, just enough to handle the background polling-parsing and uploading to S3.
+This project polls the TMAS API every five minutes, getting occupancy dashboard metrics, per configured location. These XML API results are parsed into JSON and stored in AWS S3 at predictive paths. The AWS S3 bucket is open to public-read and any CORS GET request, so any frontend can interact with it without authentication or configuration. The NodeJS/Express app that manages this is served on [Heroku](https://www.heroku.com). There is a sample [static site](https://library-occupancy.herokuapp.com/static/) and a [React site](https://library-occupancy.herokuapp.com/react/). Note that the Heroku site should not be publicly linked to directly, it is meant as an example of the running site deployed - the Heroku instance size is moderate, just enough to handle the background polling-parsing and uploading to S3.
 
 ## Displaying on the Frontend
 
 The frontend display [provided with this project](./public) is not at all the only way to display this data. However, it does provide a workable model of how to use [Bulma](http://bulma.io)-styled card components to display an SVG circular capacity indicator. The frontend can be loaded as flat HTML/CSS/JS files to any site. They manage fetching the S3 bucket data per configured location. The primary page shows the status of all configured facilities, but the [sites](./public/sites) folder has stub pages for each facility to be displayed individually, without headers and footers, so that they can be embedded in iFrames on any page without breaking the rest of the page styling.
 
-The public folder is the easiest way to deploy this, though there is also a [React Frontend](./react-frontend) that implements a slightly more programmatically robust way of building similar functionality.
+The public folder is the easiest way to deploy this, though there is also a [React Frontend](./frontend) that implements a slightly more programmatically robust way of building similar functionality.
 
 ## Contributing, Forking, Licensing, and Maintenance
 
