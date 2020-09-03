@@ -11,31 +11,6 @@
         type="text/css" media="all">
     <link rel="stylesheet" href="css/occupancy.css" type="text/css" media="all" />
     <script type="text/javascript" src="js/occupancy.js"></script>
-    <script type="text/javascript">
-        const facilities = [
-            LibraryFacility('Smathers Library - Reading Room', 'UFLGRR'),
-            LibraryFacility('Smathers Library - Room 100', 'UFLRM1'),
-            LibraryFacility('Smathers Library - Latin American and Caribbean Collections', 'UFLLAT'),
-            LibraryFacility('Smathers Library - Panama Canal ', 'UFLPCM'),
-            LibraryFacility('Smathers Library - Main Entrance', 'UFL001'),
-            LibraryFacility('Library West', 'UFL002'),
-            LibraryFacility('Marston Science Library', 'UFL003'),
-            LibraryFacility('Education Library', 'UFL004'),
-            LibraryFacility('Architecture and Fine Arts Library', 'UFL005'),
-            LibraryFacility('Health Science Center Library', 'UFL006'),
-        ]
-        const occupancies = facilities.map((facility) => {
-            const occupancy = LibraryOccupancyWidget(`${facility.locationId}-container`, facility)
-            occupancy.render()
-            return occupancy
-        })
-        const POLL_SECONDS = 60
-        setInterval(() => {
-            occupancies.forEach(async (occupancy) => {
-                await occupancy.draw()
-            })
-        }, POLL_SECONDS * 1000)
-    </script>
 </head>
 
 <body>
@@ -112,6 +87,33 @@
             </div>
         </div>
     </footer>
+    <script type="text/javascript">
+        const facilities = [
+            LibraryFacility('Smathers Library - Reading Room', 'UFLGRR'),
+            LibraryFacility('Smathers Library - Room 100', 'UFLRM1'),
+            LibraryFacility('Smathers Library - Latin American and Caribbean Collections', 'UFLLAT'),
+            LibraryFacility('Smathers Library - Panama Canal ', 'UFLPCM'),
+            LibraryFacility('Smathers Library - Main Entrance', 'UFL001'),
+            LibraryFacility('Library West', 'UFL002'),
+            LibraryFacility('Marston Science Library', 'UFL003'),
+            LibraryFacility('Education Library', 'UFL004'),
+            LibraryFacility('Architecture and Fine Arts Library', 'UFL005'),
+            LibraryFacility('Health Science Center Library', 'UFL006'),
+        ]
+        const occupancies = facilities.map((facility) => {
+            const occupancy = LibraryOccupancyWidget(`${facility.locationId}-container`, facility)
+            occupancy.render()
+            return occupancy
+        })
+        const MILLISECONDS_IN_SECOND = 1000
+        const POLL_SECONDS = 60
+        const POLL_TIME = POLL_SECONDS * MILLISECONDS_IN_SECOND
+        setInterval(() => {
+            occupancies.forEach(async (occupancy) => {
+                await occupancy.draw()
+            })
+        }, POLL_TIME)
+    </script>
 </body>
 
 </html>

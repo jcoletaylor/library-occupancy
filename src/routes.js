@@ -2,13 +2,6 @@ const { settings } = require('./config/settings')
 const { FetchHelper } = require('./lib/fetch_helper')
 const routes = require('express').Router()
 
-const getUrl = (locationId) => {
-  const baseUrl = 'https://library-occupancy.s3.amazonaws.com'
-  const prefix = settings.aws.s3.key_prefix
-  const url = `${baseUrl}/${prefix}/${locationId}`
-  return url
-}
-
 const getRequest = (locationId) => {
   const endpoint = 'https://library-occupancy.s3.amazonaws.com'
   const path = `/${settings.aws.s3.key_prefix}/${locationId}`
