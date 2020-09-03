@@ -14,6 +14,8 @@ This project polls the TMAS API every five minutes, getting occupancy dashboard 
 
 The frontend display [provided with this project](./public) is not at all the only way to display this data. However, it does provide a workable model of how to use [Bulma](http://bulma.io)-styled card components to display an SVG circular capacity indicator. The frontend can be loaded as flat HTML/CSS/JS files to any site. They manage fetching the S3 bucket data per configured location. The primary page shows the status of all configured facilities, but the [sites](./public/sites) folder has stub pages for each facility to be displayed individually, without headers and footers, so that they can be embedded in iFrames on any page without breaking the rest of the page styling.
 
+The public folder is the easiest way to deploy this, though there is also a [React Frontend](./react-frontend) that implements a slightly more programmatically robust way of building similar functionality.
+
 ## Contributing, Forking, Licensing, and Maintenance
 
 [Contributions](./CONTRIBUTING) to the codebase or to suggested changes are welcome. Standard forking and PRs are requested, with common OpenSource expectations of professionalism and courtesy.
