@@ -13,7 +13,7 @@ class OccupancyClient {
     return {
       fromDate: date,
       toDate: date,
-      interval: 5,
+      interval: 1,
       reqType: 'tdo',
       hours: 2,
       apiKey: facility.getApiKey(),

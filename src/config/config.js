@@ -12,7 +12,7 @@ module.exports = {
       locationIds: ['apst0000']
     },
     poll: {
-      seconds: parseInt((process.env.POLL_SECONDS || 60 * 5), 10),
+      seconds: parseInt((process.env.POLL_SECONDS || 60), 10),
       enabled: () => {
         const enabled = (process.env.POLL_ENABLED ? (process.env.POLL_ENABLED === 'Y') : false)
         return enabled
@@ -41,7 +41,7 @@ module.exports = {
       locationIds: ['apst0000']
     },
     poll: {
-      seconds: parseInt((process.env.POLL_SECONDS || 60 * 5), 10),
+      seconds: parseInt((process.env.POLL_SECONDS || 60), 10),
       enabled: () => {
         const enabled = (process.env.POLL_ENABLED ? (process.env.POLL_ENABLED === 'Y') : false)
         return enabled
@@ -76,7 +76,7 @@ module.exports = {
       ]
     },
     poll: {
-      seconds: parseInt((process.env.POLL_SECONDS || 60 * 5), 10),
+      seconds: parseInt((process.env.POLL_SECONDS || 60), 10),
       enabled: () => {
         const enabled = (process.env.POLL_ENABLED ? (process.env.POLL_ENABLED === 'Y') : false)
         return enabled
