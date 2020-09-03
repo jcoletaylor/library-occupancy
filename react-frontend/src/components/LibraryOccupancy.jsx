@@ -1,46 +1,40 @@
 import React, { useState, useEffect, useCallback } from "react"
 import useInterval from "../hooks/useInterval"
 import Card from "./Card"
-
-const POLL_SECONDS = 60 * 1000
+import * as C from "../Constants"
 
 export default function LibraryOccupancy(props) {
   const [current, setCurrent] = useState(0)
   const [limit, setLimit] = useState(100)
-  const [percent, setPercent] = useState(0)
+  const [percentage, setPercentage] = useState(0)
   const [updatedTime, setUpdatedTime] = useState(new Date())
   const { facility } = props
 
-  const getUrl = useCallback(() => {
-    const baseUrl = "https://library-occupancy.s3.amazonaws.com"
-    const url = `${baseUrl}/${facility.prefix}/${facility.location_id}`
-    return url
-  }, [facility])
-
   const getOccupancy = useCallback(async () => {
+    const url = `${C.BASE_S3_URL}/${facility.prefix}/${facility.location_id}`
     const options = {
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
     }
-    const resp = await fetch(getUrl(), options)
+    const resp = await fetch(url, options)
     const data = await resp.json()
     return data
-  }, [getUrl])
+  }, [facility])
 
-  const getPercentage = (limit, current) => {
-    let percentage = 100 - ((limit - current) / limit) * 100
-    if (isNaN(percentage)) {
-      percentage = 100
+  const getPercentage = (lim, curr) => {
+    let pct = 100 - ((lim - curr) / lim) * 100
+    if (isNaN(pct)) {
+      pct = 100
     }
-    if (percentage < 0) {
-      percentage = 0
+    if (pct < 0) {
+      pct = 0
     }
-    if (percentage > 100) {
-      percentage = 100
+    if (pct > 100) {
+      pct = 100
     }
-    return percentage
+    return pct
   }
 
   const safeOccupancyMinimum = min => {
@@ -66,7 +60,7 @@ export default function LibraryOccupancy(props) {
     const data = await getOccupancyData()
     setCurrent(data.current)
     setLimit(data.limit)
-    setPercent(data.percentage)
+    setPercentage(data.percentage)
     setUpdatedTime(data.current_as_of)
   }, [getOccupancyData])
 
@@ -76,14 +70,14 @@ export default function LibraryOccupancy(props) {
 
   useInterval(async () => {
     await updateComponentData()
-  }, POLL_SECONDS)
+  }, C.POLL_SECONDS)
 
   return (
     <Card
       facility={facility}
       current={current}
       limit={limit}
-      percentage={percent}
+      percentage={percentage}
       current_as_of={updatedTime}
     />
   )

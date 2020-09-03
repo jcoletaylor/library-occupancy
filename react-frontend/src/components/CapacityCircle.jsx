@@ -1,34 +1,21 @@
 import React from "react"
-
-const OCCUPANCY_LEVELS = {
-  SAFE: "safe",
-  WARNING: "warning",
-  DANGER: "danger",
-}
-
-const OCCUPANCY_LEVEL_RANGES = {
-  SAFE_MAXIUMUM: 50,
-  WARNING_MAXIUMUM: 80,
-}
-
-const CIRCLE_R = 90
-const CIRCLE_CIRC = 565.48
+import * as C from "../Constants"
 
 export default function CapacityCircle(props) {
   const getFillPercentage = pct => {
-    const c = Math.PI * (CIRCLE_R * 2)
+    const c = Math.PI * (C.CIRCLE_R * 2)
     const fillPct = ((100 - pct) / 100) * c
     return fillPct
   }
   const getLevel = pct => {
-    let level = OCCUPANCY_LEVELS.SAFE
+    let level = C.OCCUPANCY_LEVELS.SAFE
     if (
-      pct > OCCUPANCY_LEVEL_RANGES.SAFE_MAXIUMUM &&
-      pct <= OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM
+      pct > C.OCCUPANCY_LEVEL_RANGES.SAFE_MAXIUMUM &&
+      pct <= C.OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM
     ) {
-      level = OCCUPANCY_LEVELS.WARNING
-    } else if (pct > OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM) {
-      level = OCCUPANCY_LEVELS.DANGER
+      level = C.OCCUPANCY_LEVELS.WARNING
+    } else if (pct > C.OCCUPANCY_LEVEL_RANGES.WARNING_MAXIUMUM) {
+      level = C.OCCUPANCY_LEVELS.DANGER
     }
     return level
   }
@@ -56,20 +43,20 @@ export default function CapacityCircle(props) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <circle
-          r={CIRCLE_R}
+          r={C.CIRCLE_R}
           cx="100"
           cy="100"
           fill="transparent"
-          strokeDasharray={CIRCLE_CIRC}
+          strokeDasharray={C.CIRCLE_CIRC}
           strokeDashoffset="0"
         ></circle>
         <circle
           className={getBarFillClassName(props.percentage)}
-          r={CIRCLE_R}
+          r={C.CIRCLE_R}
           cx="100"
           cy="100"
           fill="transparent"
-          strokeDasharray={CIRCLE_CIRC}
+          strokeDasharray={C.CIRCLE_CIRC}
           strokeDashoffset="0"
           style={getCircleStyle()}
         ></circle>

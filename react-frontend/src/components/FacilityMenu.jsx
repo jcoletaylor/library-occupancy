@@ -6,7 +6,7 @@ export default function FacilityTabs(props) {
   const changeMenuView = tab => {
     return e => {
       e.preventDefault()
-      props.setViewingLocation(tab)
+      props.setActiveLocation(tab)
     }
   }
   const getIsActive = tab => {
@@ -14,7 +14,12 @@ export default function FacilityTabs(props) {
   }
   return (
     <aside className="menu">
-      <p className="menu-label">All</p>
+      <p className="menu-label">
+        <span class="icon">
+          <i class="fas fa-home"></i>&nbsp;
+        </span>
+        All
+      </p>
       <ul className="menu-list">
         <MenuItem
           facility={FacilityMap.all}
@@ -22,7 +27,12 @@ export default function FacilityTabs(props) {
           getIsActive={getIsActive}
         />
       </ul>
-      <p className="menu-label">Smathers Libraries</p>
+      <p className="menu-label">
+        <span class="icon">
+          <i class="fas fa-book"></i>&nbsp;
+        </span>
+        Smathers Libraries
+      </p>
       <ul className="menu-list">
         <MenuItem
           facility={FacilityMap.UFL002}

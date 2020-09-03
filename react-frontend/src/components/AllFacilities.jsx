@@ -1,9 +1,9 @@
 import React from "react"
-import SingleFacility from './SingleFacility'
-import FacilityMap from './FacilityMap'
+import LibraryOccupancy from "./LibraryOccupancy"
+import FacilityMap from "./FacilityMap"
 
-const getFacility = (location_id) => {
-    return FacilityMap[location_id]
+const getFacility = location_id => {
+  return FacilityMap[location_id]
 }
 
 export default function AllFacilities() {
@@ -11,41 +11,41 @@ export default function AllFacilities() {
     <>
       <div className="columns">
         <div className="column">
-          <SingleFacility facility={getFacility("UFL002")} />
+          <LibraryOccupancy facility={getFacility("UFL002")} />
         </div>
         <div className="column">
-          <SingleFacility facility={getFacility("UFL003")} />
+          <LibraryOccupancy facility={getFacility("UFL003")} />
         </div>
         <div className="column">
-          <SingleFacility facility={getFacility("UFL006")} />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <SingleFacility facility={getFacility("UFL005")} />
-        </div>
-        <div className="column">
-          <SingleFacility facility={getFacility("UFL004")} />
-        </div>
-        <div className="column">
-          <SingleFacility facility={getFacility("UFL001")} />
+          <LibraryOccupancy facility={getFacility("UFL006")} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <SingleFacility facility={getFacility("UFLRM1")} />
+          <LibraryOccupancy facility={getFacility("UFL005")} />
         </div>
         <div className="column">
-          <SingleFacility facility={getFacility("UFLGRR")} />
+          <LibraryOccupancy facility={getFacility("UFL004")} />
         </div>
         <div className="column">
-          <SingleFacility facility={getFacility("UFLPCM")} />
+          <LibraryOccupancy facility={getFacility("UFL001")} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <LibraryOccupancy facility={getFacility("UFLRM1")} />
+        </div>
+        <div className="column">
+          <LibraryOccupancy facility={getFacility("UFLGRR")} />
+        </div>
+        <div className="column">
+          <LibraryOccupancy facility={getFacility("UFLPCM")} />
         </div>
       </div>
       <div className="columns">
         <div className="column"></div>
         <div className="column">
-          <SingleFacility facility={getFacility("UFLLAT")} />
+          <LibraryOccupancy facility={getFacility("UFLLAT")} />
         </div>
         <div className="column"></div>
       </div>
