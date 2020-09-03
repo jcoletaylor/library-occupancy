@@ -5,21 +5,21 @@ import HoursWarning from "./HoursWarning"
 import FacilityFactory from "./FacilityFactory"
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("all")
+  const [viewingLocation, setViewingLocation] = useState("all")
   return (
     <div id="app">
       <Hero />
+      <HoursWarning />
       <section className="columns">
         <div className="column is-2">
           <section className="section">
-            <FacilityMenu active_tab={activeTab} setActiveTab={setActiveTab} />
+            <FacilityMenu location_id={viewingLocation} setViewingLocation={setViewingLocation} />
           </section>
         </div>
 
         <div className="column is-10">
           <section className="section">
-            <HoursWarning /> <br />
-            <FacilityFactory active_tab={activeTab} />
+            <FacilityFactory location_id={viewingLocation} />
           </section>
         </div>
       </section>

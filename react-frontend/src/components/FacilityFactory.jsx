@@ -1,14 +1,14 @@
 import React from "react"
-import CounterColumns from './CounterColumns'
+import AllFacilities from './AllFacilities'
 import FacilityMap from './FacilityMap'
 import SingleFacility from './SingleFacility'
 
 export default function FacilityFactory(props) {
     const getFacilityWidget = () => {
-        if (props.active_tab === "all") {
-            return <CounterColumns />
+        if (props.location_id === "all") {
+            return <AllFacilities />
         }
-        const facility = FacilityMap[props.active_tab]
+        const facility = FacilityMap[props.location_id]
         return <SingleFacility facility={facility} />
     }
     return (

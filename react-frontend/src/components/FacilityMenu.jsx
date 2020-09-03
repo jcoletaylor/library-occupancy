@@ -1,48 +1,80 @@
 import React from "react"
 import FacilityMap from "./FacilityMap"
+import MenuItem from "./MenuItem"
+
 export default function FacilityTabs(props) {
-  const getIsActive = tab => {
-    return tab === props.active_tab ? "is-active" : null
-  }
   const changeMenuView = tab => {
     return e => {
       e.preventDefault()
-      props.setActiveTab(tab)
+      props.setViewingLocation(tab)
     }
   }
-  const buildMenuItem = facility => {
-    const h = `#${facility.location_id}`
-    return (
-      <li className="is-size-7">
-        <a
-          className={getIsActive(facility.location_id)}
-          onClick={changeMenuView(facility.location_id)}
-          href={h}
-        >
-          {facility.name}
-        </a>
-      </li>
-    )
+  const getIsActive = tab => {
+    return tab === props.location_id ? "is-active" : null
   }
-    return (
-      <aside className="menu">
-        <p className="menu-label">Home</p>
-        <ul className="menu-list">
-          {buildMenuItem(FacilityMap.all)}
-        </ul>
-        <p className="menu-label">Smathers Libraries</p>
-        <ul className="menu-list">
-          {buildMenuItem(FacilityMap.UFL002)}
-          {buildMenuItem(FacilityMap.UFL003)}
-          {buildMenuItem(FacilityMap.UFL006)}
-          {buildMenuItem(FacilityMap.UFL005)}
-          {buildMenuItem(FacilityMap.UFL004)}
-          {buildMenuItem(FacilityMap.UFL001)}
-          {buildMenuItem(FacilityMap.UFLRM1)}
-          {buildMenuItem(FacilityMap.UFLGRR)}
-          {buildMenuItem(FacilityMap.UFLPCM)}
-          {buildMenuItem(FacilityMap.UFLLAT)}
-        </ul>
-      </aside>
-    )
+  return (
+    <aside className="menu">
+      <p className="menu-label">All</p>
+      <ul className="menu-list">
+        <MenuItem
+          facility={FacilityMap.all}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+      </ul>
+      <p className="menu-label">Smathers Libraries</p>
+      <ul className="menu-list">
+        <MenuItem
+          facility={FacilityMap.UFL002}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFL003}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFL006}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFL005}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFL004}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFL001}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFLRM1}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFLGRR}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFLPCM}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+        <MenuItem
+          facility={FacilityMap.UFLLAT}
+          changeMenuView={changeMenuView}
+          getIsActive={getIsActive}
+        />
+      </ul>
+    </aside>
+  )
 }
