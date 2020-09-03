@@ -13,7 +13,7 @@ export default function FacilityTabs(props) {
   const buildMenuItem = facility => {
     const h = `#${facility.location_id}`
     return (
-      <li>
+      <li className="is-size-7">
         <a
           className={getIsActive(facility.location_id)}
           onClick={changeMenuView(facility.location_id)}
