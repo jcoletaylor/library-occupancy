@@ -13,7 +13,7 @@ export default function LibraryOccupancy(props) {
 
   const getUrl = useCallback(() => {
     const baseUrl = "https://library-occupancy.s3.amazonaws.com"
-    const url = `${baseUrl}/${facility.prefix}/${facility.locationId}`
+    const url = `${baseUrl}/${facility.prefix}/${facility.location_id}`
     return url
   }, [facility])
 

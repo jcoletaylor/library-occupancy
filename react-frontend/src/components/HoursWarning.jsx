@@ -2,7 +2,7 @@ import React from "react"
 
 export default function HoursWarning() {
   return (
-    <h2>
+    <h2 className="has-text-centered">
       <strong>
         Please confirm{" "}
         <a href="http://www.uflib.ufl.edu/ps/hours/">Location Hours</a> before

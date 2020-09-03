@@ -43,7 +43,10 @@ export default function CapacityCircle(props) {
   }
 
   return (
-    <div className="facility-container" data-pct={Math.round(props.percentage)}>
+    <div
+      className="facility-container has-text-centered"
+      data-pct={Math.round(props.percentage)}
+    >
       <svg
         className="svg-circle"
         width="200"

@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Hero() {
   return (
-    <section className="hero has-background-link">
+    <section className="hero has-background-link has-text-centered">
       <div className="hero-body">
         <h1 className="title has-text-white-bis">
           University of Florida Smathers Libraries

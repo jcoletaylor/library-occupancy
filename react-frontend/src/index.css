@@ -55,16 +55,8 @@ html {
 
 body {
     height: 100%;
-    text-align: center;
 }
 
-h3,
-h5 {
-    margin: 0;
-    text-transform: uppercase;
-    text-shadow: 0 0 0.05em black;
-}
-
-h5 {
-    font-weight: 300
+#app {
+    height: 100%;
 }

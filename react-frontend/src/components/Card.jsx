@@ -10,7 +10,7 @@ export default function Card(props) {
     return `${d.toDateString()}, ${d.getHours()}:${minutes}`
   }
   return (
-    <div className="card" id={locationId}>
+    <div className="card has-text-centered" id={locationId}>
       <div className="card-header has-background-info-light">
         <div className="card-header-title is-centered facility">
           {props.facility.name}
